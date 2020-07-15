@@ -1,0 +1,17 @@
+$ORIGIN foo.bar.tld.
+$TTL 300
+
+@ IN SOA ns.xsfx.dev. marv.xsfx.dev. (
+		0000000000		; serial number
+		86400			; refresh
+		7200			; retry
+		2419200			; expire
+		3600			; min TTL
+		)
+
+		IN		NS		ns.xsfx.dev.
+
+
+bla		IN		A		127.0.0.1
+
+blubb		IN		A		127.0.1.1

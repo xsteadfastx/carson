@@ -1,0 +1,12 @@
+$ORIGIN foo.bar.tld.
+$TTL 300
+@ IN SOA ns.foo.bar.tld. admin.foo.bar.tld. (
+           2011010203  ; serial number
+           86400       ; Refresh
+           7200        ; Retry
+           604800      ; Expire
+           300         ; Min TTL
+           )
+IN NS ns.bar.tld.
+bla IN A 127.0.0.1
+zonk IN A 127.0.1.1

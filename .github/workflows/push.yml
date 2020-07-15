@@ -1,0 +1,50 @@
+---
+name: push
+on:
+  - push
+  - pull_request
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Lint
+        uses: docker://golangci/golangci-lint:v1.27.0
+        with:
+          args: make lint
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test
+        uses: docker://golang:1.14
+        with:
+          args: make test
+
+  build:
+    needs:
+      - lint
+      - test
+    runs-on: ubuntu-latest
+    container:
+      image: golang:1.14
+      options: --entrypoint /bin/sh
+    steps:
+      - name: Install gox
+        run: (cd /go; go get github.com/mitchellh/gox)
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Build
+        run: make build
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            carson_linux_*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

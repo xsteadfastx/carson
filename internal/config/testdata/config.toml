@@ -1,0 +1,9 @@
+secret = "foobar"
+zone_dir = "./tmp"
+scheme = "http"
+port = "8000"
+nameserver = "ns.foo.bar.tld"
+admin = "marv@xsfx.dev"
+
+[[zones]]
+name = "foo.bar.tld"

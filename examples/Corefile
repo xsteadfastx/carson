@@ -1,0 +1,9 @@
+.:5300 {
+        auto {
+                directory /etc/zones (.*).zone {1}
+                reload 10s
+        }
+        log
+        errors
+        prometheus localhost:9253
+}
