@@ -71,6 +71,8 @@ func middlewareLogger(next http.Handler) http.Handler {
 
 // Run runs the webserver.
 func (ddns *DDNS) Run() {
+	ddns.Refresher.Refresh(context.Background(), ddns, Record{}, "")
+
 	ddns.Counters = NewCounters()
 	ddns.RegisterCounters()
 

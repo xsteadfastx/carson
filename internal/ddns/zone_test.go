@@ -164,6 +164,14 @@ func TestAddRecord(t *testing.T) {
 			map[string]ddns.Record{"zonk": {Hostname: "zonk.foo.bar.tld", Type: "A", Target: "127.0.0.1"}},
 			map[string]ddns.Record{"zonk": {Hostname: "zonk.foo.bar.tld", Type: "A", Target: "127.0.1.1"}},
 		},
+		{
+			ddns.Record{},
+			"",
+			"",
+			false,
+			map[string]ddns.Record{},
+			map[string]ddns.Record{},
+		},
 	}
 
 	for _, table := range tables {

@@ -82,7 +82,7 @@ func (ref Refresher) Refresh(ctx context.Context, ddns *DDNS, r Record, remoteAd
 		return
 	}
 
-	if changed {
+	if changed || r == (Record{}) {
 		logger.Info("writes zones...")
 
 		for _, z := range ddns.Zones {
@@ -202,6 +202,10 @@ func (ddns *DDNS) CreateZone(ctx context.Context, z Zone) error {
 }
 
 func (ddns *DDNS) AddRecord(ctx context.Context, r Record, remoteAddr string) (bool, error) { //nolint: funlen
+	if r == (Record{}) {
+		return false, nil
+	}
+
 	if r.Hostname == "" {
 		return false, errs.ErrMissingRecordHostname
 	}
